@@ -6,6 +6,8 @@
 :root {
   --fontFamilyBase: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system,
     BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --fontSizeBase100: 10px;
+  --lineHeightBase100: 14px;
   --fontSizeBase200: 12px;
   --fontSizeBase300: 14px;
   --fontSizeBase400: 16px;
@@ -25,6 +27,13 @@
   --fontWeightMedium: 500;
   --fontWeightSemibold: 600;
   --fontWeightBold: 700;
+  /* Fluent spacing (під тултіп / callout, як у DevTools) */
+  --spacingVerticalSNudge: 6px;
+  --spacingHorizontalS: 8px;
+  /* Tooltip: #f3f2f1 / #323130; тінь з більшим blur + дві амплітуди (насиченіше й м’якший ореол) */
+  --fluentTooltipBackground: #f3f2f1;
+  --fluentTooltipForeground: #323130;
+  --fluentTooltipShadow: 0 4px 18px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
   /* SharePoint .headerContent h2 — DevTools: 30px / 700, not --fontSizeBase600 (24px) */
   --leaderboardTitleFontSize: 30px;
   --leaderboardTitleLineHeight: 35px;
@@ -43,6 +52,8 @@
   /* SharePoint control chrome — 2px radius на .ms-Dropdown / .ms-SearchBox */
   --borderRadiusSmall: 2px;
   --borderRadiusMedium: 4px;
+  --borderRadiusLarge: 6px;
+  --borderRadiusXLarge: 8px;
   --borderRadius2XLarge: 12px;
   --shadow2: 0 0 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.14);
   --shadow4: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
@@ -126,13 +137,15 @@
   --podiumThirdAvatarText: #134e4a;
   --podiumSecondThirdAvatarFontSize: 24px;
 
-  /* User row card (DevTools on userRowContainer — default vs expanded split) */
+  /* User row: спокій (≈ряд 5) — ледь тінь; hover (≈ряд 4) — м’яка «підйомна» тінь; expanded — як картка SP */
   --userRowText: #0f172a;
   --userRowBorder: #e2e8f0;
-  --userRowShadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --userRowShadowHover: 0 2px 6px rgba(0, 0, 0, 0.08);
-  --userRowShadowExpanded: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --userRowShadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --userRowShadowHover: 0 4px 14px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --userRowShadowExpanded: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
   --userRowExpandedBorder: #0ea5e9;
+  /* SharePoint userRowContainer (DevTools): border-radius: 12px = --borderRadius2XLarge */
+  --userRowCardRadius: var(--borderRadius2XLarge);
 }
 
 *,
@@ -146,6 +159,63 @@ html {
 }
 
 /*
+ * Fluent Tooltip — 12px текст (--fontSizeBase200), зручні відступи, #f3f2f1 / #323130, одна лінія.
+ */
+.fluent-tooltip-host {
+  position: relative;
+}
+
+.fluent-tooltip-host[data-tooltip]:not([data-tooltip=""]):hover::after,
+.fluent-tooltip-host[data-tooltip]:not([data-tooltip=""]):focus-visible::after {
+  content: attr(data-tooltip);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10050;
+  padding: 8px 12px;
+  min-height: 32px;
+  width: max-content;
+  max-width: min(100vw - 32px, 480px);
+  box-sizing: border-box;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase200);
+  color: var(--fluentTooltipForeground);
+  text-align: center;
+  background: var(--fluentTooltipBackground);
+  border: none;
+  border-radius: var(--borderRadiusSmall);
+  box-shadow: var(--fluentTooltipShadow);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased;
+  pointer-events: none;
+}
+
+.fluent-tooltip-host[data-tooltip]:not([data-tooltip=""]):hover::before,
+.fluent-tooltip-host[data-tooltip]:not([data-tooltip=""]):focus-visible::before {
+  content: "";
+  position: absolute;
+  z-index: 10051;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  box-sizing: border-box;
+  background: var(--fluentTooltipBackground);
+  border: none;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+/*
   FluentProvider canvas (main background) + leaderboard section on top (different color / surface).
   Matches SharePoint: neutral canvas (#ebebed) under slate-tinted web part (#f8fafc).
 */
@@ -155,14 +225,14 @@ body {
   background: var(--canvas-bg);
   color: var(--colorNeutralForeground1);
   line-height: 1.45;
+  font-family: var(--fontFamilyBase);
 }
 
 /* Page shell — section snapshot: background, type, padding, transitions */
 .leaderboard {
   background: #f8fafc;
   color: #0f172a;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   max-width: var(--maxw);
@@ -225,8 +295,7 @@ body {
   max-width: var(--maxw);
   width: 100%;
   padding: var(--filterBarPaddingBlock) var(--filterBarPaddingInline);
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -583,6 +652,14 @@ body {
   pointer-events: none;
 }
 
+/* Контурна іконка: блог без display:block інколи «милиться» на сабпікселях */
+.ms-SearchBox.search-box .ms-SearchBox-icon {
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+  shape-rendering: geometricPrecision;
+}
+
 /* При фокусе в поле — только текст и каретка (иконка скрыта, как в SharePoint SearchBox) */
 .ms-SearchBox.search-box:focus-within .ms-SearchBox-iconContainer.search-box__icon {
   display: none;
@@ -642,24 +719,28 @@ body {
 }
 
 /*
- * ChromeClose у SearchBox — SharePoint DevTools: іконка 12×16, 12px MDL2, колір #373737, margin 0 4px.
+ * .ms-Button--icon clear — SharePoint DevTools: 32×30, padding 0 4px, margin -1px 0, #373737;
+ * hover: colorNeutralBackground1Hover (#fff). Хрестик — тонкі лінії (stroke), не залитий.
  */
 .search-box__clear.ms-Button {
   display: none;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
   box-sizing: border-box;
-  min-width: 0;
-  margin: 0 4px;
-  padding: 0;
+  flex: 0 0 32px;
+  width: 32px;
+  min-width: 32px;
+  height: 30px;
+  margin: -1px 0;
+  padding: 0 4px;
   border: none;
   border-radius: var(--borderRadiusSmall);
   background: transparent;
   color: #373737;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.1s ease;
 }
 
 .ms-SearchBox.search-box .search-box__clear:not([hidden]) {
@@ -667,7 +748,13 @@ body {
 }
 
 .search-box__clear:hover {
-  color: #29292b;
+  background: #fff;
+  color: #000;
+}
+
+.search-box__clear:active {
+  background: var(--colorNeutralBackground1Pressed, #dadada);
+  color: #000;
 }
 
 .search-box__clear:focus {
@@ -682,18 +769,18 @@ body {
 .search-box__clear-icon.ms-Icon {
   display: inline-flex;
   line-height: 0;
-  font-size: 12px;
-  width: 12px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   align-items: center;
   justify-content: center;
   color: inherit;
   font-style: normal;
+  pointer-events: none;
 }
 
 .search-box__clear-icon svg {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: block;
 }
 
@@ -708,8 +795,21 @@ body {
   justify-content: center;
   margin: 0 auto var(--podiumMarginBottom);
   max-width: var(--podiumMaxWidth);
+  overflow: visible;
   padding: var(--podiumPadding);
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * [hidden] сам по собі не ховає блок, якщо нижче в каскаді є .podium { display: flex } — треба явно.
+ * Немає результатів → refresh() ставить hidden; тоді подіум не займає місце під MessageBar.
+ */
+.podium[hidden] {
+  display: none;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  gap: 0;
 }
 
 /*
@@ -907,6 +1007,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: var(--borderRadiusCircular);
+  font-family: var(--fontFamilyNumeric);
   font-weight: var(--fontWeightBold);
   color: #fff;
   box-sizing: border-box;
@@ -983,7 +1084,7 @@ body {
   max-width: 100%;
 }
 
-/* SharePoint .podiumScore: Segoe 18px / 700, line 24px; span наследует тот же шрифт (не Bahnschrift) */
+/* SharePoint .podiumScore + Fluent --fontFamilyNumeric для суми на бейджі */
 .podium-score {
   display: inline-flex;
   align-items: center;
@@ -992,7 +1093,7 @@ body {
   border-radius: 20px;
   font-size: var(--fontSizeBase450);
   font-weight: 700;
-  font-family: var(--fontFamilyBase);
+  font-family: var(--fontFamilyNumeric);
   line-height: var(--lineHeightBase450);
   margin-bottom: 12px;
   background: #fff;
@@ -1056,7 +1157,7 @@ body {
 
 .podium-score--gold .podium-score-value,
 .podium-score--blue .podium-score-value {
-  font-family: inherit;
+  font-family: var(--fontFamilyNumeric);
   font-weight: 700;
   font-size: inherit;
   line-height: inherit;
@@ -1083,8 +1184,7 @@ body {
   height: 2px;
   background: #fde047;
   color: #0f172a;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -1169,7 +1269,7 @@ body {
   width: 100%;
   margin: 0;
   text-align: center;
-  font-family: var(--fontFamilyBase);
+  font-family: var(--fontFamilyNumeric);
   font-size: 96px;
   font-weight: 900;
   line-height: 1;
@@ -1203,14 +1303,14 @@ body {
 .user-row-container {
   background: var(--colorNeutralBackground3);
   border: 1px solid var(--userRowBorder);
-  border-radius: var(--borderRadius2XLarge);
+  border-radius: var(--userRowCardRadius);
   box-shadow: var(--userRowShadow);
   color: var(--userRowText);
   font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
-  overflow: hidden;
+  overflow: visible;
   text-align: left;
   user-select: text;
   -webkit-font-smoothing: antialiased;
@@ -1230,6 +1330,17 @@ body {
   display: block;
 }
 
+/* Верхня «кришка» картки та низ секції деталей — ті самі R, що border картки (без overflow:hidden, щоб не різати тултіпи). */
+.user-row-container:not(.expanded) .row-main {
+  border-radius: var(--userRowCardRadius);
+  background-color: var(--colorNeutralBackground3);
+}
+
+.user-row-container.expanded .row-main {
+  border-radius: var(--userRowCardRadius) var(--userRowCardRadius) 0 0;
+  background-color: var(--colorNeutralBackground3);
+}
+
 .row-main {
   display: flex;
   align-items: center;
@@ -1237,6 +1348,7 @@ body {
   padding: 20px 24px;
   gap: 16px;
   flex-wrap: wrap;
+  overflow: visible;
 }
 
 .row-left {
@@ -1257,8 +1369,7 @@ body {
   min-width: 32px;
   min-height: 28px;
   padding: 0;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyNumeric);
   font-size: 24px;
   font-weight: var(--fontWeightBold);
   line-height: 28px;
@@ -1299,8 +1410,7 @@ body {
 /* SharePoint h3.name_* — DevTools: 18px Segoe UI, #0F172A, ~21px line box */
 .name {
   margin: 0;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: 18px;
   font-weight: var(--fontWeightSemibold);
   line-height: 21px;
@@ -1312,8 +1422,7 @@ body {
 
 /* SharePoint span.role_* — DevTools: 14px Segoe UI, #64748B, ~17px line box */
 .role {
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: 14px;
   font-weight: var(--fontWeightMedium);
   line-height: 17px;
@@ -1332,8 +1441,8 @@ body {
   flex-wrap: wrap;
   justify-content: flex-end;
   text-align: left;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  overflow: visible;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -1346,6 +1455,7 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 18px;
+  overflow: visible;
 }
 
 .category-stats-empty {
@@ -1392,10 +1502,16 @@ body {
   fill: currentColor;
 }
 
+/* Education: Fluent 20×20 (HatGraduation) поруч із 2048-гліфами виглядає дрібнішим */
+.category-stat-wrap--education .category-stat-icon,
+.category-stat-wrap--education .category-stat-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
 /* Лічильник категорії — 14px поруч із 20px іконкою */
 .category-stat-count {
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyNumeric);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightSemibold);
   line-height: var(--lineHeightBase300);
@@ -1413,8 +1529,7 @@ body {
   padding-left: 24px;
   border-left: 1px solid #e2e8f0;
   color: #0f172a;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -1434,8 +1549,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyNumeric);
   font-size: var(--fontSizeBase600);
   font-weight: var(--fontWeightBold);
   color: #0ea5e9;
@@ -1547,8 +1661,7 @@ body {
   border-top: 1px solid #e2e8f0;
   background: #f8fafc;
   color: #0f172a;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -1556,12 +1669,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.user-row-container.expanded .details {
+  border-bottom-left-radius: var(--userRowCardRadius);
+  border-bottom-right-radius: var(--userRowCardRadius);
+}
+
 /* SharePoint h4.detailsTitle_* — computed: 12px / 600 / #64748B / letter-spacing .05em */
 .details-title {
   margin: 0 0 16px;
   padding: 0;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: 12px;
   font-weight: var(--fontWeightSemibold);
   letter-spacing: 0.05em;
@@ -1575,8 +1692,7 @@ body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   color: #0f172a;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -1633,8 +1749,7 @@ body {
 /* SharePoint td навколо categoryBadge — DevTools: 14px / 400 / #0f172a, Segoe */
 .activity-table td.activity-category {
   text-align: left;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightRegular);
   line-height: inherit;
@@ -1647,10 +1762,18 @@ body {
   border-bottom: none;
 }
 
+/* Нижні кути останнього рядка — збігаються з .details (як м’яка «підкладка» в оригіналі) */
+.user-row-container.expanded .activity-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--userRowCardRadius);
+}
+
+.user-row-container.expanded .activity-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--userRowCardRadius);
+}
+
 /* SharePoint td.activityName_* — 14px / 600 / #1E293B, Segoe UI */
 .activity-name {
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightSemibold);
   line-height: inherit;
@@ -1669,8 +1792,7 @@ body {
 
 /* SharePoint td.activityPoints — DevTools: 14px / 700 / #0ea5e9, right, Segoe */
 .activity-table td.activity-points {
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyNumeric);
   font-size: var(--fontSizeBase300);
   font-weight: var(--fontWeightBold);
   line-height: inherit;
@@ -1689,8 +1811,7 @@ body {
   align-items: center;
   padding: 4px 12px;
   border-radius: 12px;
-  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--fontFamilyBase);
   font-size: 12px;
   font-weight: var(--fontWeightSemibold);
   line-height: inherit;
@@ -1710,7 +1831,8 @@ body {
 
 /*
  * Fluent MessageBar (info) — DevTools SharePoint:
- * текст 12px / line-height 16px, #323130; іконка Info 16×16, #605E5C (Fluent MDL2 Hybrid)
+ * текст 12px / line-height 16px, #323130; іконка Info 16×16, #605E5C
+ * Без рамки й тіні — лише фон, як в оригіналі.
  */
 .leaderboard-empty-message-bar.ms-MessageBar {
   box-sizing: border-box;
@@ -1732,9 +1854,9 @@ body {
   user-select: text;
   text-align: left;
   background: #f3f2f1;
-  border: 1px solid var(--colorNeutralStroke1);
-  border-radius: var(--borderRadiusSmall);
-  box-shadow: var(--shadow2);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .leaderboard-empty-message-bar .leaderboard-empty-message-bar-icon {

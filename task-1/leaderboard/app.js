@@ -173,9 +173,8 @@
   }
 
   /**
-   * Іконки рядка категорій — гліфи з @fluentui/react-icons (20×20), інлайн у статичному app.js.
-   * У пакеті немає Presentation20Regular / Education20Regular / Emoji220Regular: використовуються
-   * SlideText20Regular, HatGraduation20Regular, Emoji20Regular (див. components/CategoryStatFluentIcons.tsx).
+   * Іконки рядка категорій. Public Speaking — той самий SVG, що в SharePoint (viewBox 2048, path з Office/Fluent).
+   * Education: HatGraduation20Regular. University Partnership: Emoji (SVG viewBox 2048, emoji-2048.svg).
    * @param {string} category
    * @returns {{ svg: string, label: string, iconName: string }}
    */
@@ -191,9 +190,9 @@
     if (category === "Public Speaking") {
       return {
         label: "Public Speaking",
-        iconName: "SlideText",
+        iconName: "Presentation",
         svg:
-          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path fill="currentColor" d="M5.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7Zm-.5 3c0-.28.22-.5.5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5ZM4.5 4A2.5 2.5 0 0 0 2 6.5v7A2.5 2.5 0 0 0 4.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 15.5 4h-11ZM3 6.5C3 5.67 3.67 5 4.5 5h11c.83 0 1.5.67 1.5 1.5v7c0 .83-.67 1.5-1.5 1.5h-11A1.5 1.5 0 0 1 3 13.5v-7Z"/></svg>',
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" focusable="false" aria-hidden="true"><path fill="currentColor" d="M0 0h1920v128h-128v896q0 26-10 49t-27 41t-41 28t-50 10h-640v640h512v128H384v-128h512v-640H256q-26 0-49-10t-41-27t-28-41t-10-50V128H0zm1664 1024V128H256v896zm-256-512v128H512V512z"/></svg>',
       };
     }
     if (category === "University Partnership") {
@@ -201,7 +200,7 @@
         label: "University Partnership",
         iconName: "Emoji",
         svg:
-          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path fill="currentColor" d="M18 10a8 8 0 1 0-16 0 8 8 0 0 0 16 0ZM3 10a7 7 0 1 1 14 0 7 7 0 0 1-14 0Zm10.5-1.5a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-5 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-1.61 4.01a.5.5 0 1 0-.78.63 5 5 0 0 0 7.78 0 .5.5 0 1 0-.78-.63 4 4 0 0 1-6.22 0Z"/></svg>',
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" focusable="false" aria-hidden="true"><path fill="currentColor" d="M640 896q-27 0-50-10t-40-27t-28-41t-10-50q0-27 10-50t27-40t41-28t50-10q27 0 50 10t40 27t28 41t10 50q0 27-10 50t-27 40t-41 28t-50 10m768 0q-27 0-50-10t-40-27t-28-41t-10-50q0-27 10-50t27-40t41-28t50-10q27 0 50 10t40 27t28 41t10 50q0 27-10 50t-27 40t-41 28t-50 10M1024 0q141 0 272 36t245 103t207 160t160 208t103 245t37 272q0 141-36 272t-103 245t-160 207t-208 160t-245 103t-272 37q-141 0-272-36t-245-103t-207-160t-160-208t-103-244t-37-273q0-141 36-272t103-245t160-207t208-160T751 37t273-37m0 1920q123 0 237-32t214-90t182-141t140-181t91-214t32-238q0-123-32-237t-90-214t-141-182t-181-140t-214-91t-238-32q-123 0-237 32t-214 90t-182 141t-140 181t-91 214t-32 238q0 123 32 237t90 214t141 182t181 140t214 91t238 32m0-384q73 0 141-20t128-57t106-90t81-118l115 58q-41 81-101 147t-134 112t-159 71t-177 25t-177-25t-159-71t-134-112t-101-147l115-58q33 65 80 118t107 90t127 57t142 20"/></svg>',
       };
     }
     return {
@@ -390,9 +389,10 @@
         var eventCount = person.categoryEventCounts[cat];
         if (!eventCount) return;
         var meta = categoryListStatIcon(cat);
-        var wrap = el("div", "category-stat-wrap");
+        var wrap = el("div", "category-stat-wrap fluent-tooltip-host");
+        if (cat === "Education") wrap.classList.add("category-stat-wrap--education");
         wrap.setAttribute("role", "group");
-        wrap.setAttribute("title", meta.label);
+        wrap.setAttribute("data-tooltip", meta.label);
         var stat = el("div", "category-stat");
         var ic = document.createElement("i");
         ic.className = "category-stat-icon";
@@ -467,6 +467,23 @@
 
       btn.addEventListener("click", function () {
         var open = detail.hidden;
+        if (open) {
+          /* Одночасно лише один розкритий рядок — згорнути інші в цьому списку */
+          var siblings = container.querySelectorAll(".user-row-container");
+          for (var si = 0; si < siblings.length; si++) {
+            var other = siblings[si];
+            if (other === shell) continue;
+            var od = other.querySelector(".row-detail");
+            var ob = other.querySelector(".expand-button");
+            if (!od || !ob || od.hidden) continue;
+            od.hidden = true;
+            ob.setAttribute("aria-expanded", "false");
+            ob.setAttribute("aria-label", "Expand");
+            other.classList.remove("expanded");
+            ob.classList.remove("expand-button--open");
+            ob.innerHTML = EXPAND_BTN_HTML_ROW_COLLAPSED;
+          }
+        }
         detail.hidden = !open;
         btn.setAttribute("aria-expanded", open ? "true" : "false");
         btn.setAttribute("aria-label", open ? "Collapse" : "Expand");

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leaderboard</title>
     <!-- ?v= збільшуй після змін у CSS/JS, щоб GitHub Pages і браузер підтягнули нові файли -->
-    <link rel="stylesheet" href="./styles.css?v=10" />
+    <link rel="stylesheet" href="./styles.css?v=30" />
   </head>
   <body>
     <section class="leaderboard" aria-labelledby="leaderboard-heading">
@@ -125,19 +125,26 @@
         <div class="search">
           <label class="visually-hidden" for="filter-search">Search employees</label>
           <div class="ms-SearchBox search-box">
-            <div class="ms-SearchBox-iconContainer search-box__icon" aria-hidden="true">
+            <div
+              class="ms-SearchBox-iconContainer search-box__icon"
+              aria-hidden="true"
+            >
               <svg
                 class="ms-SearchBox-icon"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
+                viewBox="0 0 20 20"
+                width="18"
+                height="18"
+                fill="none"
                 focusable="false"
                 aria-hidden="true"
               >
+                <circle cx="8" cy="8" r="4.75" stroke="currentColor" stroke-width="1.25" fill="none" />
                 <path
-                  fill="currentColor"
-                  d="M10 2a8 8 0 105.293 14.707l4.9 4.9 1.414-1.414-4.9-4.9A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"
+                  d="M12.1 12.1L16.2 16.2"
+                  stroke="currentColor"
+                  stroke-width="1.25"
+                  stroke-linecap="round"
                 />
               </svg>
             </div>
@@ -152,14 +159,17 @@
             <button
               type="button"
               id="filter-search-clear"
-              class="search-box__clear ms-Button"
+              class="search-box__clear ms-Button ms-Button--icon"
               hidden
-              aria-label="Clear search"
+              aria-label="Clear text"
             >
-              <i class="search-box__clear-icon ms-Icon" data-icon-name="ChromeClose" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" focusable="false" aria-hidden="true">
+              <i class="search-box__clear-icon ms-Icon ms-Button-icon" data-icon-name="ChromeClose" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="none" focusable="false" aria-hidden="true">
                   <path
-                    d="M1.06 1.06a.75.75 0 0 1 1.06 0L6 4.94l3.88-3.88a.75.75 0 1 1 1.06 1.06L7.06 6l3.88 3.88a.75.75 0 1 1-1.06 1.06L6 7.06l-3.88 3.88a.75.75 0 0 1-1.06-1.06L4.94 6 1.06 2.12a.75.75 0 0 1 0-1.06Z"
+                    stroke="currentColor"
+                    stroke-width="0.85"
+                    stroke-linecap="round"
+                    d="M2.2 2.2l5.6 5.6M7.8 2.2l-5.6 5.6"
                   />
                 </svg>
               </i>
@@ -173,7 +183,7 @@
       <div id="list" class="list"></div>
     </section>
 
-    <script src="./data.js?v=10"></script>
-    <script src="./app.js?v=10"></script>
+    <script src="./data.js?v=17"></script>
+    <script src="./app.js?v=23"></script>
   </body>
 </html>
