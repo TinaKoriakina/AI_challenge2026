@@ -333,7 +333,7 @@
       var catStats = el("div", "category-stats");
       sortedCategoriesForList(person.categoryEventCounts).forEach(function (cat) {
         var eventCount = person.categoryEventCounts[cat];
-        if (!pts) return;
+        if (!eventCount) return;
         var meta = categoryListStatIcon(cat);
         var wrap = el("div", "category-stat-wrap");
         wrap.setAttribute("role", "group");
@@ -347,7 +347,7 @@
         stat.appendChild(ic);
         stat.appendChild(el("span", "category-stat-count", String(eventCount)));
         wrap.appendChild(stat);
-        var sr = el("span", "visually-hidden", meta.label + ": " + pts + " points");
+        var sr = el("span", "visually-hidden", meta.label + ": " + eventCount + " events");
         wrap.appendChild(sr);
         catStats.appendChild(wrap);
       });
