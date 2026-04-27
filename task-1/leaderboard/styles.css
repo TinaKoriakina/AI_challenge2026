@@ -61,7 +61,10 @@
   --canvas-bg: var(--colorNeutralBackground1);
   --maxw: 1200px;
 
-  /* SharePoint .filterBar — DevTools: #fff, 12px radius, 20px 24px padding, gap 12px, max-width 1200 + margin auto */
+  /* SharePoint .filterBar — DevTools: #fff, 12px radius; padding 20px 24px; margin знизу 24px до контенту під плашкою */
+  --filterBarPaddingBlock: 20px;
+  --filterBarPaddingInline: 24px;
+  --filterBarMarginBottom: 24px;
   --filterBarForeground: #0f172a;
   --filterBarBorder: #e2e8f0;
   --filterBarShadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -202,7 +205,8 @@ body {
 
 /*
  * SharePoint .filterBar_2943a085 — у нас .filter-bar.filterBar (суффикс _hash из CSS Modules не копируем).
- * DevTools: text-align left, #fff, 12px radius, 20px 24px padding, gap 12px, max-width 1200, margin auto, transition all .2s
+ * Відступ ДО нотифікації / списку / подіуму — це не padding, а margin-bottom плашки (помаранчевий 24px у DevTools).
+ * Всередині плашки — зелений padding: 20px вертикально, 24px горизонтально.
  */
 .filter-bar {
   align-items: center;
@@ -217,10 +221,10 @@ body {
   gap: 12px;
   justify-content: space-between;
   overflow: visible;
-  margin: 0 auto 24px;
+  margin: 0 auto var(--filterBarMarginBottom);
   max-width: var(--maxw);
   width: 100%;
-  padding: 20px 24px;
+  padding: var(--filterBarPaddingBlock) var(--filterBarPaddingInline);
   font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-size: var(--fontSizeBase300);
@@ -1184,12 +1188,13 @@ body {
   text-shadow: none;
 }
 
-/* List container — SharePoint .list_*: column, gap, centered strip */
+/* List container — SharePoint .list_*: column, gap, centered strip. Без верхнього margin: зазор від фільтрів лише margin-bottom плашки. */
 .list {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin: 0 auto;
+  padding-top: 0;
   max-width: var(--maxw);
   width: 100%;
 }
