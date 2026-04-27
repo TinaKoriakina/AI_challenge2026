@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section class="leaderboard" aria-labelledby="leaderboard-heading">
+      <header class="header">
+        <div class="header-content">
+          <h2 id="leaderboard-heading">Leaderboard</h2>
+          <p>Top performers based on contributions and activity</p>
+        </div>
+      </header>
+
+      <!-- SharePoint: .filterBar > .filters | .search; Fluent Dropdown + Callout (не нативный select) -->
+      <div class="filter-bar filterBar" role="region" aria-label="Filters">
+        <div class="filters">
+          <div class="ms-Dropdown-container ms-Dropdown-container--yearQuarter">
+            <div class="ms-Dropdown">
+              <label id="filter-year-label" class="visually-hidden" for="filter-year-combobox">Year</label>
+              <input type="hidden" id="filter-year" name="filter-year" value="" />
+              <button
+                type="button"
+                id="filter-year-combobox"
+                class="ms-Dropdown-trigger"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="filter-year-list"
+                aria-labelledby="filter-year-label"
+              >
+                <span id="filter-year-title" class="ms-Dropdown-title">All Years</span>
+                <span class="ms-Dropdown-caretDownWrapper" aria-hidden="true">
+                  <svg class="ms-Dropdown-caretDown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+                    <path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42z" />
+                  </svg>
+                </span>
+              </button>
+              <div id="filter-year-callout" class="ms-Dropdown-callout" hidden>
+                <div class="ms-Callout-main">
+                  <div class="dropdownItemsWrapper" tabindex="-1">
+                    <div id="filter-year-list" class="ms-Dropdown-items" role="listbox" aria-labelledby="filter-year-label"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ms-Dropdown-container ms-Dropdown-container--yearQuarter ms-Dropdown-container--quarter"
+          >
+            <div class="ms-Dropdown">
+              <label id="filter-quarter-label" class="visually-hidden" for="filter-quarter-combobox">Quarter</label>
+              <input type="hidden" id="filter-quarter" name="filter-quarter" value="" />
+              <button
+                type="button"
+                id="filter-quarter-combobox"
+                class="ms-Dropdown-trigger"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="filter-quarter-list"
+                aria-labelledby="filter-quarter-label"
+              >
+                <span id="filter-quarter-title" class="ms-Dropdown-title">All Quarters</span>
+                <span class="ms-Dropdown-caretDownWrapper" aria-hidden="true">
+                  <svg class="ms-Dropdown-caretDown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+                    <path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42z" />
+                  </svg>
+                </span>
+              </button>
+              <div id="filter-quarter-callout" class="ms-Dropdown-callout" hidden>
+                <div class="ms-Callout-main">
+                  <div class="dropdownItemsWrapper" tabindex="-1">
+                    <div
+                      id="filter-quarter-list"
+                      class="ms-Dropdown-items"
+                      role="listbox"
+                      aria-labelledby="filter-quarter-label"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ms-Dropdown-container ms-Dropdown-container--category">
+            <div class="ms-Dropdown">
+              <label id="filter-category-label" class="visually-hidden" for="filter-category-combobox">Category</label>
+              <input type="hidden" id="filter-category" name="filter-category" value="" />
+              <button
+                type="button"
+                id="filter-category-combobox"
+                class="ms-Dropdown-trigger"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="filter-category-list"
+                aria-labelledby="filter-category-label"
+              >
+                <span id="filter-category-title" class="ms-Dropdown-title">All Categories</span>
+                <span class="ms-Dropdown-caretDownWrapper" aria-hidden="true">
+                  <svg class="ms-Dropdown-caretDown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+                    <path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42z" />
+                  </svg>
+                </span>
+              </button>
+              <div id="filter-category-callout" class="ms-Dropdown-callout" hidden>
+                <div class="ms-Callout-main">
+                  <div class="dropdownItemsWrapper" tabindex="-1">
+                    <div
+                      id="filter-category-list"
+                      class="ms-Dropdown-items"
+                      role="listbox"
+                      aria-labelledby="filter-category-label"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search">
+          <label class="visually-hidden" for="filter-search">Search employees</label>
+          <div class="ms-SearchBox search-box">
+            <div class="ms-SearchBox-iconContainer search-box__icon" aria-hidden="true">
+              <svg
+                class="ms-SearchBox-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                focusable="false"
+                aria-hidden="true"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 2a8 8 0 105.293 14.707l4.9 4.9 1.414-1.414-4.9-4.9A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"
+                />
+              </svg>
+            </div>
+            <input
+              id="filter-search"
+              type="search"
+              class="ms-SearchBox-field search-box__field"
+              placeholder="Search employee..."
+              autocomplete="off"
+              role="searchbox"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="podium" id="podium" aria-label="Top three"></div>
+
+      <div id="list" class="list"></div>
+    </section>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

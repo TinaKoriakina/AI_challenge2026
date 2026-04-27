@@ -1,1 +1,8 @@
 .claude/
+
+# Leaderboard npm deps (Fluent font-icons package)
+task-1/leaderboard/node_modules/
+
+# Local SharePoint save (URLs / tokens — do not publish)
+task-1/EDU - Company Leader Board 2025.html
+task-1/EDU - Company Leader Board 2025_files/

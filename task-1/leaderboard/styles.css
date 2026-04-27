@@ -1,0 +1,1654 @@
+/*
+  Subset of Fluent / SharePoint theme tokens from DevTools (page root).
+  Do not paste the full token list — only what the leaderboard uses.
+  Ignore stray overrides e.g. --buttonBgColor: #ff0 (debug / extension noise).
+*/
+:root {
+  --fontFamilyBase: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system,
+    BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --fontSizeBase200: 12px;
+  --fontSizeBase300: 14px;
+  --fontSizeBase400: 16px;
+  --fontSizeBase450: 18px;
+  --fontSizeBase500: 20px;
+  --fontSizeBase600: 24px;
+  --lineHeightBase200: 16px;
+  --lineHeightBase300: 20px;
+  --lineHeightBase450: 24px;
+  --lineHeightBase500: 28px;
+  --lineHeightBase600: 32px;
+  --borderRadius3XLarge: 16px;
+  --borderRadiusCircular: 10000px;
+  --fontFamilyNumeric: Bahnschrift, "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  --fontWeightRegular: 400;
+  --fontWeightMedium: 500;
+  --fontWeightSemibold: 600;
+  --fontWeightBold: 700;
+  /* SharePoint .headerContent h2 — DevTools: 30px / 700, not --fontSizeBase600 (24px) */
+  --leaderboardTitleFontSize: 30px;
+  --leaderboardTitleLineHeight: 35px;
+  --colorNeutralBackground1: #ebebed;
+  --colorNeutralBackground1Selected: #eaeaea;
+  --colorNeutralBackground2: #f8f8f8;
+  --colorNeutralBackground3: #ffffff;
+  --colorNeutralForeground1: #000000;
+  --colorNeutralForeground2: #373737;
+  --colorNeutralForeground5: #616161;
+  --colorNeutralStroke1: #d0d0d0;
+  --colorNeutralStroke1Hover: #c8c8c8;
+  --colorNeutralBackground1Hover: #ffffff;
+  /* SharePoint / Fluent: фокус кольцо на полях и combobox */
+  --colorStrokeFocus2: #0b0b0b;
+  /* SharePoint control chrome — 2px radius на .ms-Dropdown / .ms-SearchBox */
+  --borderRadiusSmall: 2px;
+  --borderRadiusMedium: 4px;
+  --borderRadius2XLarge: 12px;
+  --shadow2: 0 0 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.14);
+  --shadow4: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
+  --shadow8: 0 0 2px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.14);
+
+  /* App aliases → Fluent */
+  --border: var(--colorNeutralStroke1);
+  --bg: var(--colorNeutralBackground3);
+  --text: var(--colorNeutralForeground1);
+  --muted: var(--colorNeutralForeground5);
+  --accent: #0ea5e9;
+  --shadow: var(--shadow4);
+  --shadow-hover: var(--shadow8);
+  /* Page: Fluent canvas (provider) vs slate web-part surface (section.leaderboard) */
+  --page-bg: #f8fafc;
+  --canvas-bg: var(--colorNeutralBackground1);
+  --maxw: 1200px;
+
+  /* SharePoint .filterBar — DevTools: #fff, 12px radius, 20px 24px padding, gap 12px, max-width 1200 + margin auto */
+  --filterBarForeground: #0f172a;
+  --filterBarBorder: #e2e8f0;
+  --filterBarShadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --filterBarShadowHover: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --filterBarTransition: all 0.2s ease;
+  /* SharePoint DevTools: --semanticButtonBorder + border-color rgb(55,55,55) на .ms-Dropdown / .ms-SearchBox */
+  --semanticButtonBorder: #373737;
+  --semanticBodyText: #000000;
+  --controlBorderRest: var(--semanticButtonBorder);
+  --controlBorderFocus: var(--semanticButtonBorder);
+  --searchBoxBorder: var(--semanticButtonBorder);
+  --searchBoxRadius: var(--borderRadiusSmall);
+  --searchBoxChromePadding: 1px 0 1px 4px;
+  --searchBoxIcon: #605e5c;
+  --semanticInputBackground: #ebebed;
+  --semanticInputText: #000000;
+  /* DevTools SP: Year 120px; Categories 150px. Quarter шире — иначе «All Quarters» упирается в chevron и обрезается. */
+  --dropdownWidthYearQuarter: 120px;
+  --dropdownWidthQuarter: 156px;
+  /* Шире под «University Partnership» без обрезки */
+  --dropdownWidthCategory: 220px;
+  /* Триггер и панель — один фон #ebebed (semanticInputBackground); рамка 1px #373737 только у триггера */
+  --dropdownTriggerBackground: var(--semanticInputBackground);
+  --dropdownListBackground: var(--semanticInputBackground);
+  /* Только «воздушная» тень без кольца 0 0 2px — иначе читается как чёрная рамка вокруг списка */
+  --dropdownCalloutShadow: 0 6px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  /* SharePoint .search_2943a085 — flex: 1; min-width: 250px */
+  --searchHostMinWidth: 250px;
+
+  /* Podium strip (DevTools snapshot on podium container) */
+  --podiumMaxWidth: 900px;
+  /* SharePoint .podiumBlock: ширина 280px; высоты 178 / 146 / 114; крупная цифра — по центру по вертикали (симметричный padding) */
+  --podiumBlockWidth: 280px;
+  --podiumBlockHeight1: 178px;
+  --podiumBlockHeight2: 146px;
+  --podiumBlockHeight3: 114px;
+  --podiumBlockPaddingTop: 16px;
+  /* Одинаковый отступ снизу у 1/2/3 — цифры садятся на одну линию по нижнему краю подиума */
+  --podiumRankNumberPaddingBottom: 12px;
+  --podiumGap: 24px;
+  --podiumMarginBottom: 64px;
+  --podiumPadding: 32px 8px;
+  --podiumText: #0f172a;
+  --podiumGold: #d4a017;
+  --podiumGoldSoft: #fef9c3;
+  /* podiumBlock: linear-gradient(180deg, #fef3c7 → #fde68a) — explicit stops like DevTools */
+  --podiumGoldPedestal: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+
+  /* 1st place avatar + badge (SharePoint podiumAvatar / podiumRankBadge snapshot — no corporate URLs) */
+  --podiumFirstAvatarFill: #86efac;
+  --podiumFirstAvatarBorder: #fbbf24;
+  --podiumFirstAvatarText: #166534;
+  --podiumFirstBadgeBg: #eab308;
+  --podiumAvatarShadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* SharePoint .podiumAvatar on ranks 2 / 3 (80px): slate vs teal fill, white ring, initials color */
+  --podiumSecondAvatarFill: #cbd5e1;
+  --podiumSecondAvatarText: #1e293b;
+  --podiumThirdAvatarFill: #5eead4;
+  --podiumThirdAvatarText: #134e4a;
+  --podiumSecondThirdAvatarFontSize: 24px;
+
+  /* User row card (DevTools on userRowContainer — default vs expanded split) */
+  --userRowText: #0f172a;
+  --userRowBorder: #e2e8f0;
+  --userRowShadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --userRowShadowHover: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --userRowShadowExpanded: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --userRowExpandedBorder: #0ea5e9;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+/*
+  FluentProvider canvas (main background) + leaderboard section on top (different color / surface).
+  Matches SharePoint: neutral canvas (#ebebed) under slate-tinted web part (#f8fafc).
+*/
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--canvas-bg);
+  color: var(--colorNeutralForeground1);
+  line-height: 1.45;
+}
+
+/* Page shell — section snapshot: background, type, padding, transitions */
+.leaderboard {
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  max-width: var(--maxw);
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 24px;
+  text-align: left;
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+  /* SharePoint .leaderboard has no box-shadow (shadow reads as a frame on canvas #ebebed) */
+}
+
+@media (min-width: calc(var(--maxw) + 48px)) {
+  .leaderboard {
+    margin-block: 0;
+  }
+}
+
+/* SharePoint .header_2943a085: margin 0 auto 32px — у нас без theme toggle, только блок заголовка */
+.header {
+  margin: 0 0 32px;
+}
+
+/* SharePoint .headerContent h2 — color #0f172a, font-size 30px, font-weight 700, margin 0 0 8px */
+.header-content h2 {
+  margin: 0 0 8px;
+  font-size: var(--leaderboardTitleFontSize);
+  font-weight: var(--fontWeightBold);
+  color: #0f172a;
+  line-height: var(--leaderboardTitleLineHeight);
+  font-family: var(--fontFamilyBase);
+}
+
+.header-content p {
+  margin: 0;
+  font-size: var(--fontSizeBase300);
+  color: #64748b;
+  line-height: var(--lineHeightBase300);
+}
+
+/*
+ * SharePoint .filterBar_2943a085 — у нас .filter-bar.filterBar (суффикс _hash из CSS Modules не копируем).
+ * DevTools: text-align left, #fff, 12px radius, 20px 24px padding, gap 12px, max-width 1200, margin auto, transition all .2s
+ */
+.filter-bar {
+  align-items: center;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--filterBarBorder);
+  border-radius: var(--borderRadius2XLarge);
+  box-shadow: var(--filterBarShadow);
+  color: var(--filterBarForeground);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  overflow: visible;
+  margin: 0 auto 24px;
+  max-width: var(--maxw);
+  width: 100%;
+  padding: 20px 24px;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+  transition: var(--filterBarTransition);
+}
+
+.filter-bar:hover {
+  box-shadow: var(--filterBarShadowHover);
+}
+
+/* SharePoint .filters_2943a085 — ряд дропдаунов; ширина по контенту, растягивание отдаём .search */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.ms-Dropdown-container {
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.ms-Dropdown-container.is-open {
+  z-index: 20;
+}
+
+/* SharePoint root-255: Year — 120px */
+.ms-Dropdown-container--yearQuarter {
+  width: var(--dropdownWidthYearQuarter);
+  flex: 0 0 var(--dropdownWidthYearQuarter);
+}
+
+/* Quarter: длинная подпись «All Quarters» + custom chevron — отдельная ширина */
+.ms-Dropdown-container--yearQuarter.ms-Dropdown-container--quarter {
+  width: var(--dropdownWidthQuarter);
+  flex: 0 0 var(--dropdownWidthQuarter);
+}
+
+/* SharePoint root-275: чуть шире под All Categories */
+.ms-Dropdown-container--category {
+  width: var(--dropdownWidthCategory);
+  flex: 0 0 var(--dropdownWidthCategory);
+}
+
+.ms-Dropdown {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* .ms-Dropdown-trigger: фон как у списка (#ebebed), 1px #373737 со всех сторон при открытии тоже */
+.ms-Dropdown-container .ms-Dropdown .ms-Dropdown-trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  padding: 0 10px 0 10px;
+  margin: 0;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  color: var(--semanticBodyText);
+  text-align: left;
+  user-select: none;
+  background-color: var(--dropdownTriggerBackground);
+  border: 1px solid var(--controlBorderRest);
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  outline: 0;
+}
+
+.ms-Dropdown-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.ms-Dropdown-caretDownWrapper {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--colorNeutralForeground5);
+}
+
+.ms-Dropdown-caretDown {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+/* Фон триггера не меняется при hover (как у поля поиска) */
+.ms-Dropdown-container .ms-Dropdown .ms-Dropdown-trigger:hover {
+  background-color: var(--dropdownTriggerBackground);
+  border-color: var(--controlBorderRest);
+}
+
+/* Свернуто + фокус на триггере — как у активного поля поиска (2px outline, offset −2px) */
+.ms-Dropdown-container:not(.is-open) .ms-Dropdown .ms-Dropdown-trigger:focus {
+  border-color: var(--controlBorderFocus);
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.ms-Dropdown-container:not(.is-open) .ms-Dropdown .ms-Dropdown-trigger:focus-visible {
+  border-color: var(--controlBorderFocus);
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+/* Открыто: чёрная 1px рамка только у триггера (все четыре стороны); у панели списка рамки нет; без кольца фокуса на триггере */
+.ms-Dropdown-container.is-open .ms-Dropdown .ms-Dropdown-trigger {
+  border-radius: 0;
+  outline: none;
+}
+
+/* Callout под триггером без визуального перекрытия нижней границы триггера */
+.ms-Dropdown-callout {
+  position: absolute;
+  left: 0;
+  right: auto;
+  top: 100%;
+  margin-top: 0;
+  z-index: 30;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(calc(100vw - 48px), 400px);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.ms-Callout-main {
+  outline: none;
+  max-height: min(360px, 50vh);
+  color: rgb(0, 0, 0);
+  visibility: visible;
+  font-family: var(--fontFamilyBase);
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  pointer-events: auto;
+  background-color: var(--dropdownListBackground);
+  overflow: hidden auto;
+  position: relative;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--dropdownCalloutShadow);
+}
+
+.ms-Callout-main:focus,
+.ms-Callout-main:focus-visible {
+  outline: none;
+}
+
+.dropdownItemsWrapper {
+  color: rgb(0, 0, 0);
+  visibility: visible;
+  font-family: var(--fontFamilyBase);
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  pointer-events: auto;
+  display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.ms-Dropdown-items {
+  display: block;
+  padding: 2px 0;
+  margin: 0;
+}
+
+.ms-Dropdown-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgb(0, 0, 0);
+  font: inherit;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  text-align: left;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  outline: none;
+}
+
+.ms-Dropdown-item:hover {
+  background-color: var(--colorNeutralBackground1Hover);
+}
+
+.ms-Dropdown-item:focus {
+  outline: none;
+}
+
+.ms-Dropdown-item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+}
+
+.ms-Dropdown-item.ms-Dropdown-item--selected {
+  background-color: var(--colorNeutralBackground1Selected);
+}
+
+.ms-Dropdown-item.ms-Dropdown-item--selected:hover {
+  background-color: var(--colorNeutralBackground1Hover);
+}
+
+.ms-Dropdown-item .ms-Button-flexContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+
+.ms-Dropdown-optionText {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(0, 0, 0);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+@media (max-width: 640px) {
+  .ms-Dropdown-container--yearQuarter,
+  .ms-Dropdown-container--category {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .search {
+    flex: 1 1 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* SharePoint .search_2943a085: flex 1, min-width 250px — растягивается в полосе фильтров */
+.search {
+  flex: 1;
+  min-width: var(--searchHostMinWidth);
+  box-sizing: border-box;
+  text-align: left;
+  color: var(--filterBarForeground);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ms-SearchBox.search-box {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  margin: 0;
+  padding: var(--searchBoxChromePadding);
+  border: 1px solid var(--searchBoxBorder);
+  border-radius: var(--searchBoxRadius);
+  background-color: var(--semanticInputBackground);
+  box-shadow: none;
+  /* visible: иначе outline фокуса обрезается (Fluent рисует кольцо с offset) */
+  overflow: visible;
+  position: relative;
+  outline: 0;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  color: var(--semanticInputText);
+  text-align: left;
+  user-select: text;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Фон поля поиска не меняется при hover (как в эталоне) */
+.ms-SearchBox.search-box:hover {
+  background-color: var(--semanticInputBackground);
+}
+
+.ms-SearchBox-iconContainer.search-box__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  flex-shrink: 0;
+  color: var(--searchBoxIcon);
+  background: transparent;
+  pointer-events: none;
+}
+
+/* При фокусе в поле — только текст и каретка (иконка скрыта, как в SharePoint SearchBox) */
+.ms-SearchBox.search-box:focus-within .ms-SearchBox-iconContainer.search-box__icon {
+  display: none;
+  width: 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ms-SearchBox.search-box:focus-within .ms-SearchBox-field.search-box__field {
+  padding-left: 8px;
+}
+
+.ms-SearchBox-field.search-box__field {
+  flex: 1 1 auto;
+  align-self: stretch;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 8px 0 0;
+  border: none;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  font: inherit;
+  font-family: inherit;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+  color: var(--semanticInputText);
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ms-SearchBox-field.search-box__field::placeholder {
+  color: var(--colorNeutralForeground5);
+}
+
+.ms-SearchBox-field.search-box__field:focus {
+  outline: none;
+}
+
+/* Фокус: одно кольцо без зазора между 1px border и outline (offset 2px давал «толстую» рамку с дыркой) */
+.ms-SearchBox.search-box:focus-within {
+  border-color: var(--controlBorderFocus);
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.ms-SearchBox-field.search-box__field::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Podium — DevTools: max-width 900px, gap 24px, padding 32px 8px, align-items flex-end, justify center */
+.podium {
+  align-items: flex-end;
+  color: var(--podiumText);
+  display: flex;
+  flex-wrap: nowrap;
+  font-family: var(--fontFamilyBase);
+  gap: var(--podiumGap);
+  justify-content: center;
+  margin: 0 auto var(--podiumMarginBottom);
+  max-width: var(--podiumMaxWidth);
+  padding: var(--podiumPadding);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Колонки: flex-basis 0 + min-width 0 — три места всегда в один ряд и делят ширину поровну (без «лома» от basis 280px + wrap).
+ * max-width 280 — как ширина .podiumBlock в SharePoint; блок внутри на 100% ширины колонки.
+ */
+.podium-column {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  max-width: var(--podiumBlockWidth);
+  min-width: 0;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+/* SharePoint podiumColumn + podiumRank1: elevated center column */
+.podium-rank-1 {
+  order: 2;
+  margin-top: -32px;
+  max-width: var(--podiumBlockWidth);
+  width: 100%;
+  color: #0f172a;
+}
+
+/* SharePoint podiumRank2 column (same width token as rank1) */
+.podium-rank-2 {
+  order: 1;
+  max-width: var(--podiumBlockWidth);
+  width: 100%;
+  color: #0f172a;
+  text-align: left;
+}
+
+.podium-rank-3 {
+  order: 3;
+  max-width: var(--podiumBlockWidth);
+  width: 100%;
+  color: #0f172a;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .podium {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 24px 8px 48px;
+  }
+
+  .podium-column {
+    flex: 1 1 auto;
+    max-width: none;
+  }
+
+  .podium-rank-1 {
+    order: 1;
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .podium-rank-1 .podium-block {
+    height: 140px;
+    min-height: 140px;
+    padding: 12px 0;
+    justify-content: center;
+  }
+
+  /* gap в этом брейкпоинте 16px → по половине ряда вычитаем 8px (как (100% - gap) / 2) */
+  .podium-rank-2 {
+    order: 2;
+    flex: 1 1 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    width: auto;
+  }
+
+  .podium-rank-3 {
+    order: 3;
+    flex: 1 1 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    width: auto;
+  }
+
+  .podium-rank-2 .podium-block {
+    height: 96px;
+    min-height: 96px;
+    padding: 12px 0;
+    justify-content: center;
+  }
+
+  .podium-rank-3 .podium-block {
+    height: 64px;
+    min-height: 64px;
+    padding: 9px 0;
+    justify-content: center;
+  }
+}
+
+.podium-user {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+/* Роль под именем — по центру (как имя на .podium-name) */
+.podium-rank-2 .podium-user .podium-role,
+.podium-rank-3 .podium-user .podium-role {
+  width: 100%;
+  text-align: center;
+}
+
+.podium-avatar-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.podium-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fontFamilyBase);
+  font-weight: var(--fontWeightBold);
+  font-size: var(--fontSizeBase500);
+  color: #fff;
+  box-sizing: border-box;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* #1: 120×120 — как в DevTools SharePoint; gold ring, mint fill (fallback под фото) */
+.podium-rank-1 .podium-avatar {
+  width: 120px;
+  height: 120px;
+  font-size: var(--fontSizeHero800, 32px);
+  background-color: var(--podiumFirstAvatarFill);
+  border: 4px solid var(--podiumFirstAvatarBorder);
+  box-shadow: var(--podiumAvatarShadow);
+  color: var(--podiumFirstAvatarText);
+}
+
+.podium-rank-1 .podium-avatar.podium-avatar--photo {
+  color: transparent;
+}
+
+/* #2 / #3: 88×88 — как в DevTools SharePoint; cover photo, white 4px ring, shadow */
+.podium-rank-2 .podium-avatar,
+.podium-rank-3 .podium-avatar {
+  width: 88px;
+  height: 88px;
+  font-size: var(--podiumSecondThirdAvatarFontSize);
+  box-shadow: var(--podiumAvatarShadow);
+}
+
+.podium-rank-2 .podium-avatar {
+  background-color: var(--podiumSecondAvatarFill);
+  border: 4px solid #fff;
+  color: var(--podiumSecondAvatarText);
+}
+
+.podium-rank-3 .podium-avatar {
+  background-color: var(--podiumThirdAvatarFill);
+  border: 4px solid #fff;
+  color: var(--podiumThirdAvatarText);
+}
+
+.podium-rank-2 .podium-avatar.podium-avatar--photo,
+.podium-rank-3 .podium-avatar.podium-avatar--photo {
+  color: transparent;
+}
+
+.podium-rank-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--borderRadiusCircular);
+  font-weight: var(--fontWeightBold);
+  color: #fff;
+  box-sizing: border-box;
+  box-shadow: var(--shadow2);
+}
+
+/* #1: DevTools 48×48, digit 18px, #EAB308, белое кольцо */
+.podium-rank-1 .podium-rank-badge {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  padding: 0;
+  right: -4px;
+  bottom: -8px;
+  border: 4px solid #fff;
+  background: var(--podiumFirstBadgeBg);
+  font-size: var(--fontSizeBase450);
+  line-height: 1;
+}
+
+/* #2 / #3: SharePoint podiumRankBadge — 4px white ring, right -4, bottom -8 */
+.podium-rank-2 .podium-rank-badge,
+.podium-rank-3 .podium-rank-badge {
+  right: -4px;
+  bottom: -8px;
+  padding: 0;
+  border: 4px solid #fff;
+  line-height: 1;
+  box-shadow: none;
+}
+
+/* #2: DevTools 40×40, digit 14px, #94a3b8 (как на скриншоте) */
+.podium-rank-2 .podium-rank-badge {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  font-size: var(--fontSizeBase300);
+  background: #94a3b8;
+}
+
+/* #3: DevTools 40×40, digit 14px, #92400E — как у #2 по размеру круга */
+.podium-rank-3 .podium-rank-badge {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  font-size: var(--fontSizeBase300);
+  background: #92400e;
+}
+
+/* SharePoint .podiumName: 20px, 700, #0f172a, margin 0 0 4px, text-align center; rank1 → 24px */
+.podium-name {
+  font-weight: var(--fontWeightBold);
+  font-size: var(--fontSizeBase500);
+  line-height: 1.167;
+  color: #0f172a;
+  margin: 0 0 4px;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.podium-rank-1 .podium-name {
+  font-size: 24px;
+}
+
+/* SharePoint .podiumRole: 14px, 500, #64748b, margin 0 0 8px */
+.podium-role {
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightMedium);
+  line-height: var(--lineHeightBase300);
+  color: #64748b;
+  margin: 0 0 8px;
+  max-width: 100%;
+}
+
+/* SharePoint .podiumScore: Segoe 18px / 700, line 24px; span наследует тот же шрифт (не Bahnschrift) */
+.podium-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: var(--fontSizeBase450);
+  font-weight: 700;
+  font-family: var(--fontFamilyBase);
+  line-height: var(--lineHeightBase450);
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: var(--accent, #0ea5e9);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* .podiumRank1 .podiumScore — 20px / 700, line 28px */
+.podium-score--gold {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid #fde047;
+  background: #fef9c3;
+  color: #ca8a04;
+  font-size: var(--fontSizeBase500);
+  font-weight: 700;
+  line-height: var(--lineHeightBase500);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* .podiumRank2 / .podiumRank3 .podiumScore — один стиль (#0ea5e9); класс --blue для обоих */
+.podium-score--blue {
+  color: #0ea5e9;
+}
+
+.podium-score--gold .podium-score-icon,
+.podium-score--blue .podium-score-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+/* Звезда Fluent 16 viewBox — масштаб в UI крупнее, чем 16×16 в DevTools (читаемость на подиуме) */
+.podium-score--gold .podium-score-icon {
+  color: #ca8a04;
+}
+
+.podium-score--blue .podium-score-icon {
+  color: #0ea5e9;
+}
+
+.podium-score--gold .podium-score-icon svg,
+.podium-score--blue .podium-score-icon svg {
+  display: block;
+  fill: currentColor;
+}
+
+.podium-score--gold .podium-score-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.podium-score--blue .podium-score-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.podium-score--gold .podium-score-value,
+.podium-score--blue .podium-score-value {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.podium-score--gold .podium-score-value {
+  font-size: var(--fontSizeBase500);
+  color: #ca8a04;
+}
+
+.podium-block {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+/* podiumBlockTop — DevTools: height 2px, inset 0, position absolute, background #fde047 */
+.podium-block-top {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: #fde047;
+  color: #0f172a;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 12px 12px 0 0;
+}
+
+/* SharePoint podiumBlock (rank 1) — DevTools snapshot */
+.podium-rank-1 .podium-block {
+  flex-direction: column;
+  align-items: center;
+  /* Fallback = нижний тон градиента; поверх — тот же linear-gradient, что в SharePoint */
+  background-color: #fde68a;
+  background-image: var(--podiumGoldPedestal);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: var(--borderRadius2XLarge, 12px) var(--borderRadius2XLarge, 12px) 0 0;
+  /* SharePoint: базовый .podiumBlock — border-top 2px; у rank1 только смена цвета на #fde047 (не #cbd5e1) */
+  border-top: 2px solid #fde047;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  color: #0f172a;
+  font-family: var(--fontFamilyBase);
+  /* DevTools: podiumBlock rank1 — 280×178; крупная цифра по вертикали по центру блока */
+  height: var(--podiumBlockHeight1);
+  min-height: var(--podiumBlockHeight1);
+  padding: 14px 0;
+  justify-content: center;
+}
+
+.podium-rank-1 .podium-block-top {
+  border-radius: var(--borderRadius2XLarge, 12px) var(--borderRadius2XLarge, 12px) 0 0;
+}
+
+/* SharePoint: .podiumRank2/.podiumRank3 .podiumBlockTop — #cbd5e1, скругление как у блока */
+.podium-rank-2 .podium-block-top,
+.podium-rank-3 .podium-block-top {
+  background: #cbd5e1;
+  border-radius: 12px 12px 0 0;
+}
+
+/*
+ * Ranks 2–3: тот же padding и та же ось, что у rank1 — column + center (раньше был row:
+ * один узкий flex-элемент по главной оси даёт другое распределение и «пляшущие» 2/3).
+ */
+.podium-rank-2 .podium-block,
+.podium-rank-3 .podium-block {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0;
+  background: linear-gradient(180deg, #e2e8f0, #cbd5e1);
+  background-color: #cbd5e1;
+  border-radius: 12px 12px 0 0;
+  border-top: 2px solid #cbd5e1;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  color: #0f172a;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+}
+
+.podium-rank-2 .podium-block {
+  height: var(--podiumBlockHeight2);
+  min-height: var(--podiumBlockHeight2);
+}
+
+.podium-rank-3 .podium-block {
+  height: var(--podiumBlockHeight3);
+  min-height: var(--podiumBlockHeight3);
+}
+
+/* SharePoint .podiumRankNumber: 96px / 900 / rgba(148,163,184,.2) — одна сетка для 1/2/3 */
+.podium-rank-number {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-family: var(--fontFamilyBase);
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  color: rgba(148, 163, 184, 0.2);
+}
+
+/* Rank 1 — DevTools: 112px, #eab30833 */
+.podium-rank-1 .podium-rank-number {
+  font-size: 112px;
+  line-height: 1;
+  color: #eab30833;
+  font-weight: 900;
+  text-shadow: none;
+}
+
+.podium-placeholder {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: var(--fontSizeBase600);
+}
+
+/* List container — SharePoint .list_*: column, gap, centered strip */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: var(--maxw);
+  width: 100%;
+}
+
+/* userRowContainer — card shell (SharePoint userRowContainer_*) */
+.user-row-container {
+  background: var(--colorNeutralBackground3);
+  border: 1px solid var(--userRowBorder);
+  border-radius: var(--borderRadius2XLarge);
+  box-shadow: var(--userRowShadow);
+  color: var(--userRowText);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  overflow: hidden;
+  text-align: left;
+  user-select: text;
+  -webkit-font-smoothing: antialiased;
+  transition: border-color 200ms cubic-bezier(0.33, 0, 0.67, 1), box-shadow 200ms cubic-bezier(0.33, 0, 0.67, 1);
+}
+
+.user-row-container:hover {
+  box-shadow: var(--userRowShadowHover);
+}
+
+.user-row-container.expanded {
+  border-color: var(--userRowExpandedBorder);
+  box-shadow: var(--userRowShadowExpanded);
+}
+
+.user-row-container .row {
+  display: block;
+}
+
+.row-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.row-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  flex: 1 1 240px;
+}
+
+/* SharePoint span.rank_* — порядковый номер: 24px, #94A3B8, 700, min-width 32px, text-align center (computed) */
+.rank {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 28px;
+  padding: 0;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 24px;
+  font-weight: var(--fontWeightBold);
+  line-height: 28px;
+  color: #94a3b8;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* SharePoint list div.avatar_* — DevTools: 56×56 */
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.0625rem;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+
+.avatar.avatar--photo {
+  color: transparent;
+}
+
+.info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* SharePoint h3.name_* — DevTools: 18px Segoe UI, #0F172A, ~21px line box */
+.name {
+  margin: 0;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 18px;
+  font-weight: var(--fontWeightSemibold);
+  line-height: 21px;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* SharePoint span.role_* — DevTools: 14px Segoe UI, #64748B, ~17px line box */
+.role {
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 14px;
+  font-weight: var(--fontWeightMedium);
+  line-height: 17px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* SharePoint div.rowRight_* — flex, align center, gap 24px, base 14px / regular, #0F172A */
+.row-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  text-align: left;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.category-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+.category-stats-empty {
+  font-size: var(--fontSizeBase300);
+  color: var(--muted);
+}
+
+.category-stat-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* SharePoint div.categoryStat_* — column, gap 4px, base 14px / 400 / #0f172a */
+.category-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: left;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* categoryStatIcon — @fluentui/react-icons 20×20, колір як у SharePoint (#0EA5E9) */
+.category-stat-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 0;
+  color: #0ea5e9;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.category-stat-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Лічильник категорії — 14px поруч із 20px іконкою */
+.category-stat-count {
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightSemibold);
+  line-height: var(--lineHeightBase300);
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+}
+
+/* SharePoint div.totalSection_* — сера вертикальна смуга зліва + відступ до категорій */
+.total-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 5.25rem;
+  padding-left: 24px;
+  border-left: 1px solid #e2e8f0;
+  color: #0f172a;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+.total-label {
+  font-size: 10px;
+  font-weight: var(--fontWeightSemibold);
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+/* SharePoint TOTAL value — DevTools: 24px Segoe UI, #0EA5E9, ~28px line box */
+.score {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase600);
+  font-weight: var(--fontWeightBold);
+  color: #0ea5e9;
+  line-height: var(--lineHeightBase600);
+  font-variant-numeric: tabular-nums;
+}
+
+/* SharePoint score star i — DevTools: 28×28, #0EA5E9 (Fluent icon box) */
+.list-score-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  line-height: 0;
+  flex-shrink: 0;
+  color: #0ea5e9;
+}
+
+.list-score-icon svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+/* SharePoint .expandButton_* — DevTools: 36×36, padding 8px, круг, #f1f5f9, chevron #0EA5E9 */
+.expand-button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #0ea5e9;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: inherit;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.expand-button:hover {
+  background: #e2e8f0;
+  color: #0ea5e9;
+}
+
+.expand-button:active {
+  background: #cbd5e1;
+}
+
+/* SharePoint expandButton у розгорнутому ряду — фон #E0F2FE (sky-100), той самий padding/круг */
+.expand-button--open {
+  background: #e0f2fe;
+}
+
+.expand-button--open:hover {
+  background: #bae6fd;
+}
+
+.expand-button--open:active {
+  background: #7dd3fc;
+}
+
+.expand-button:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+
+/* SharePoint i + ChevronDown — DevTools: 20×20px, #0EA5E9 (Fluent icon box) */
+.expand-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  line-height: 0;
+  color: #0ea5e9;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.expand-button-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  max-width: 100%;
+  max-height: 100%;
+  fill: currentColor;
+}
+
+.row-detail {
+  padding: 0;
+}
+
+/* SharePoint div.details_* — фон, верхня межа, внутрішні відступи */
+.details {
+  box-sizing: border-box;
+  padding: 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* SharePoint h4.detailsTitle_* — computed: 12px / 600 / #64748B / letter-spacing .05em */
+.details-title {
+  margin: 0 0 16px;
+  padding: 0;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 12px;
+  font-weight: var(--fontWeightSemibold);
+  letter-spacing: 0.05em;
+  line-height: var(--lineHeightBase200);
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* SharePoint div.tableWrapper_* — overflow-x + body text on таблицю */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  color: #0f172a;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.activity-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  color: inherit;
+  font-family: inherit;
+}
+
+.activity-table th,
+.activity-table td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.activity-table th:last-child,
+.activity-table td:last-child {
+  text-align: right;
+}
+
+/* SharePoint th — DevTools: 12px / #64748B / semibold, padding 12px 8px */
+.activity-table th {
+  padding: 12px 8px;
+  color: #64748b;
+  font-weight: var(--fontWeightSemibold);
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* SharePoint td — DevTools на activityName: padding 16px 8px */
+.activity-table td {
+  padding: 16px 8px;
+  /* Фон на td (не на tr) — hover; за замовчуванням прозоро, тло секції .details (#f8fafc) */
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+/* SharePoint RECENT ACTIVITY: hover рядка */
+.activity-table tbody tr:hover td {
+  background-color: #f1f5f9;
+}
+
+/* SharePoint td навколо categoryBadge — DevTools: 14px / 400 / #0f172a, Segoe */
+.activity-table td.activity-category {
+  text-align: left;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: inherit;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+}
+
+.activity-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* SharePoint td.activityName_* — 14px / 600 / #1E293B, Segoe UI */
+.activity-name {
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightSemibold);
+  line-height: inherit;
+  color: #1e293b;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+  max-width: 36rem;
+}
+
+.activity-date {
+  color: #64748b;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* SharePoint td.activityPoints — DevTools: 14px / 700 / #0ea5e9, right, Segoe */
+.activity-table td.activity-points {
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightBold);
+  line-height: inherit;
+  color: #0ea5e9;
+  text-align: right;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+  font-variant-numeric: tabular-nums;
+}
+
+/* SharePoint span.categoryBadge + categoryDefault — DevTools (однаково для всіх) */
+.category-badge {
+  box-sizing: border-box;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-family: Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 12px;
+  font-weight: var(--fontWeightSemibold);
+  line-height: inherit;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-badge.category-default {
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: var(--borderRadius2XLarge);
+  border: 1px dashed var(--border);
+}
