@@ -668,8 +668,8 @@ body {
   width: 100%;
 }
 
-/* SharePoint podiumColumn + podiumRank1: elevated center column */
-.podium-rank-1 {
+/* Колонки подиума: тільки порядок/вирівнювання; золото/срібло/бронза — на .podium-s-* всередині */
+.podium-slot-center {
   order: 2;
   margin-top: -32px;
   max-width: var(--podiumBlockWidth);
@@ -677,8 +677,7 @@ body {
   color: #0f172a;
 }
 
-/* SharePoint podiumRank2 column (same width token as rank1) */
-.podium-rank-2 {
+.podium-slot-left {
   order: 1;
   max-width: var(--podiumBlockWidth);
   width: 100%;
@@ -686,12 +685,25 @@ body {
   text-align: left;
 }
 
-.podium-rank-3 {
+.podium-slot-right {
   order: 3;
   max-width: var(--podiumBlockWidth);
   width: 100%;
   color: #0f172a;
   text-align: left;
+}
+
+.podium-column--empty {
+  pointer-events: none;
+}
+
+.podium-s-1,
+.podium-s-2,
+.podium-s-3 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -706,7 +718,7 @@ body {
     max-width: none;
   }
 
-  .podium-rank-1 {
+  .podium-slot-center {
     order: 1;
     flex: 1 1 100%;
     max-width: 100%;
@@ -714,7 +726,7 @@ body {
     margin-top: 0;
   }
 
-  .podium-rank-1 .podium-block {
+  .podium-s-1 .podium-block {
     height: 140px;
     min-height: 140px;
     padding: 12px 0;
@@ -722,28 +734,28 @@ body {
   }
 
   /* gap в этом брейкпоинте 16px → по половине ряда вычитаем 8px (как (100% - gap) / 2) */
-  .podium-rank-2 {
+  .podium-slot-left {
     order: 2;
     flex: 1 1 calc(50% - 8px);
     max-width: calc(50% - 8px);
     width: auto;
   }
 
-  .podium-rank-3 {
+  .podium-slot-right {
     order: 3;
     flex: 1 1 calc(50% - 8px);
     max-width: calc(50% - 8px);
     width: auto;
   }
 
-  .podium-rank-2 .podium-block {
+  .podium-s-2 .podium-block {
     height: 96px;
     min-height: 96px;
     padding: 12px 0;
     justify-content: center;
   }
 
-  .podium-rank-3 .podium-block {
+  .podium-s-3 .podium-block {
     height: 64px;
     min-height: 64px;
     padding: 9px 0;
@@ -760,8 +772,8 @@ body {
 }
 
 /* Роль под именем — по центру (как имя на .podium-name) */
-.podium-rank-2 .podium-user .podium-role,
-.podium-rank-3 .podium-user .podium-role {
+.podium-s-2 .podium-user .podium-role,
+.podium-s-3 .podium-user .podium-role {
   width: 100%;
   text-align: center;
 }
@@ -789,7 +801,7 @@ body {
 }
 
 /* #1: 120×120 — как в DevTools SharePoint; gold ring, mint fill (fallback под фото) */
-.podium-rank-1 .podium-avatar {
+.podium-s-1 .podium-avatar {
   width: 120px;
   height: 120px;
   font-size: var(--fontSizeHero800, 32px);
@@ -799,33 +811,33 @@ body {
   color: var(--podiumFirstAvatarText);
 }
 
-.podium-rank-1 .podium-avatar.podium-avatar--photo {
+.podium-s-1 .podium-avatar.podium-avatar--photo {
   color: transparent;
 }
 
 /* #2 / #3: 88×88 — как в DevTools SharePoint; cover photo, white 4px ring, shadow */
-.podium-rank-2 .podium-avatar,
-.podium-rank-3 .podium-avatar {
+.podium-s-2 .podium-avatar,
+.podium-s-3 .podium-avatar {
   width: 88px;
   height: 88px;
   font-size: var(--podiumSecondThirdAvatarFontSize);
   box-shadow: var(--podiumAvatarShadow);
 }
 
-.podium-rank-2 .podium-avatar {
+.podium-s-2 .podium-avatar {
   background-color: var(--podiumSecondAvatarFill);
   border: 4px solid #fff;
   color: var(--podiumSecondAvatarText);
 }
 
-.podium-rank-3 .podium-avatar {
+.podium-s-3 .podium-avatar {
   background-color: var(--podiumThirdAvatarFill);
   border: 4px solid #fff;
   color: var(--podiumThirdAvatarText);
 }
 
-.podium-rank-2 .podium-avatar.podium-avatar--photo,
-.podium-rank-3 .podium-avatar.podium-avatar--photo {
+.podium-s-2 .podium-avatar.podium-avatar--photo,
+.podium-s-3 .podium-avatar.podium-avatar--photo {
   color: transparent;
 }
 
@@ -842,7 +854,7 @@ body {
 }
 
 /* #1: DevTools 48×48, digit 18px, #EAB308, белое кольцо */
-.podium-rank-1 .podium-rank-badge {
+.podium-s-1 .podium-rank-badge {
   width: 48px;
   height: 48px;
   min-width: 48px;
@@ -856,8 +868,8 @@ body {
 }
 
 /* #2 / #3: SharePoint podiumRankBadge — 4px white ring, right -4, bottom -8 */
-.podium-rank-2 .podium-rank-badge,
-.podium-rank-3 .podium-rank-badge {
+.podium-s-2 .podium-rank-badge,
+.podium-s-3 .podium-rank-badge {
   right: -4px;
   bottom: -8px;
   padding: 0;
@@ -867,7 +879,7 @@ body {
 }
 
 /* #2: DevTools 40×40, digit 14px, #94a3b8 (как на скриншоте) */
-.podium-rank-2 .podium-rank-badge {
+.podium-s-2 .podium-rank-badge {
   width: 40px;
   height: 40px;
   min-width: 40px;
@@ -876,7 +888,7 @@ body {
 }
 
 /* #3: DevTools 40×40, digit 14px, #92400E — как у #2 по размеру круга */
-.podium-rank-3 .podium-rank-badge {
+.podium-s-3 .podium-rank-badge {
   width: 40px;
   height: 40px;
   min-width: 40px;
@@ -897,7 +909,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.podium-rank-1 .podium-name {
+.podium-s-1 .podium-name {
   font-size: 24px;
 }
 
@@ -1024,7 +1036,7 @@ body {
 }
 
 /* SharePoint podiumBlock (rank 1) — DevTools snapshot */
-.podium-rank-1 .podium-block {
+.podium-s-1 .podium-block {
   flex-direction: column;
   align-items: center;
   /* Fallback = нижний тон градиента; поверх — тот же linear-gradient, что в SharePoint */
@@ -1045,13 +1057,13 @@ body {
   justify-content: center;
 }
 
-.podium-rank-1 .podium-block-top {
+.podium-s-1 .podium-block-top {
   border-radius: var(--borderRadius2XLarge, 12px) var(--borderRadius2XLarge, 12px) 0 0;
 }
 
 /* SharePoint: .podiumRank2/.podiumRank3 .podiumBlockTop — #cbd5e1, скругление как у блока */
-.podium-rank-2 .podium-block-top,
-.podium-rank-3 .podium-block-top {
+.podium-s-2 .podium-block-top,
+.podium-s-3 .podium-block-top {
   background: #cbd5e1;
   border-radius: 12px 12px 0 0;
 }
@@ -1060,8 +1072,8 @@ body {
  * Ranks 2–3: тот же padding и та же ось, что у rank1 — column + center (раньше был row:
  * один узкий flex-элемент по главной оси даёт другое распределение и «пляшущие» 2/3).
  */
-.podium-rank-2 .podium-block,
-.podium-rank-3 .podium-block {
+.podium-s-2 .podium-block,
+.podium-s-3 .podium-block {
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1077,12 +1089,12 @@ body {
   font-weight: var(--fontWeightRegular);
 }
 
-.podium-rank-2 .podium-block {
+.podium-s-2 .podium-block {
   height: var(--podiumBlockHeight2);
   min-height: var(--podiumBlockHeight2);
 }
 
-.podium-rank-3 .podium-block {
+.podium-s-3 .podium-block {
   height: var(--podiumBlockHeight3);
   min-height: var(--podiumBlockHeight3);
 }
@@ -1108,21 +1120,12 @@ body {
 }
 
 /* Rank 1 — DevTools: 112px, #eab30833 */
-.podium-rank-1 .podium-rank-number {
+.podium-s-1 .podium-rank-number {
   font-size: 112px;
   line-height: 1;
   color: #eab30833;
   font-weight: 900;
   text-shadow: none;
-}
-
-.podium-placeholder {
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  font-size: var(--fontSizeBase600);
 }
 
 /* List container — SharePoint .list_*: column, gap, centered strip */

@@ -90,16 +90,23 @@
     merged.sort(function (a, b) {
       return b.totalScore - a.totalScore;
     });
-    merged.forEach(function (r, i) {
-      r.rank = i + 1;
-    });
 
     var term = (filters.searchTerm || "").trim().toLowerCase();
-    if (!term) return merged;
-    return merged.filter(function (r) {
-      var role = (r.role || "").toLowerCase();
-      return r.displayName.toLowerCase().includes(term) || role.includes(term);
+    var out = merged;
+    if (term) {
+      var parts = term.split(/\s+/).filter(Boolean);
+      out = merged.filter(function (r) {
+        var name = r.displayName.toLowerCase();
+        var role = (r.role || "").toLowerCase();
+        return parts.every(function (p) {
+          return name.includes(p) || role.includes(p);
+        });
+      });
+    }
+    out.forEach(function (r, i) {
+      r.rank = i + 1;
     });
+    return out;
   }
 
   function initials(name) {
@@ -238,26 +245,41 @@
     });
   }
 
-  function renderPodium(container, rows) {
+  /**
+   * @param {PersonRow[]} rows — поточний список (з пошуком); топ-3 з нього у слотах ліво / центр / право.
+   * @param {Map<string, number>} globalRankMap — місце 1…N у рейтингу **без** пошуку (ті самі фільтри рік/квартал/категорія), за ключем normalizeName.
+   */
+  function renderPodium(container, rows, globalRankMap) {
     container.innerHTML = "";
     var top = rows.slice(0, 3);
-    var order = [
-      { idx: 1, cls: "podium-rank-2" },
-      { idx: 0, cls: "podium-rank-1" },
-      { idx: 2, cls: "podium-rank-3" },
+    var slotDefs = [
+      { idx: 1, slotClass: "podium-slot-left" },
+      { idx: 0, slotClass: "podium-slot-center" },
+      { idx: 2, slotClass: "podium-slot-right" },
     ];
-    order.forEach(function (slot) {
-      var col = el("div", "podium-column " + slot.cls);
-      var person = top[slot.idx];
+    function tierNumFromStanding(s) {
+      if (s <= 1) return 1;
+      if (s === 2) return 2;
+      return 3;
+    }
+    slotDefs.forEach(function (def) {
+      var col = el("div", "podium-column " + def.slotClass);
+      var person = top[def.idx];
       if (!person) {
-        col.appendChild(el("div", "podium-placeholder", "—"));
+        col.classList.add("podium-column--empty");
+        col.setAttribute("aria-hidden", "true");
         container.appendChild(col);
         return;
       }
+      var key = normalizeName(person.displayName);
+      var standing = globalRankMap.has(key) ? globalRankMap.get(key) : person.rank;
+      var tierCls = "podium-s-" + tierNumFromStanding(standing);
+
+      var tierWrap = el("div", tierCls);
       var user = el("div", "podium-user");
       var avContainer = el("div", "podium-avatar-container");
       var av = el("div", "podium-avatar");
-      if (person.rank === 1) {
+      if (standing === 1) {
         av.classList.add("podium-avatar--first");
       }
       if (person.photoUrl && (/^https?:\/\//i.test(person.photoUrl) || person.photoUrl.startsWith("/"))) {
@@ -269,7 +291,7 @@
         av.textContent = initials(person.displayName);
       }
       avContainer.appendChild(av);
-      avContainer.appendChild(el("div", "podium-rank-badge", String(person.rank)));
+      avContainer.appendChild(el("div", "podium-rank-badge", String(standing)));
       user.appendChild(avContainer);
 
       var nameEl = document.createElement("h3");
@@ -283,22 +305,23 @@
       user.appendChild(roleEl);
 
       var scoreWrap = el("div", "podium-score");
-      /* SharePoint: ranks 2 и 3 — одинаковый .podiumScore (цвет/размер как у второго) */
-      var scoreMod = person.rank === 1 ? "podium-score--gold" : "podium-score--blue";
+      var scoreMod = standing === 1 ? "podium-score--gold" : "podium-score--blue";
       scoreWrap.className = "podium-score " + scoreMod;
       appendFavoriteStarScore(scoreWrap, person.totalScore);
       user.appendChild(scoreWrap);
-      col.appendChild(user);
 
       var block = el("div", "podium-block");
       block.appendChild(el("div", "podium-block-top"));
-      block.appendChild(el("span", "podium-rank-number", String(person.rank)));
-      col.appendChild(block);
+      block.appendChild(el("span", "podium-rank-number", String(standing)));
+
+      tierWrap.appendChild(user);
+      tierWrap.appendChild(block);
+      col.appendChild(tierWrap);
       container.appendChild(col);
     });
   }
 
-  function renderList(container, rows) {
+  function renderList(container, rows, globalRankMap) {
     container.innerHTML = "";
     if (!rows.length) {
       container.appendChild(el("div", "empty-state", "No results for the current filters."));
@@ -310,7 +333,9 @@
       var row = el("div", "row");
       var main = el("div", "row-main");
       var left = el("div", "row-left");
-      left.appendChild(el("span", "rank", String(person.rank)));
+      var listKey = normalizeName(person.displayName);
+      var listRank = globalRankMap.has(listKey) ? globalRankMap.get(listKey) : person.rank;
+      left.appendChild(el("span", "rank", String(listRank)));
       var av = el("div", "avatar");
       if (person.photoUrl && (/^https?:\/\//i.test(person.photoUrl) || person.photoUrl.startsWith("/"))) {
         av.classList.add("avatar--photo");
@@ -643,9 +668,19 @@
   function refresh() {
     var raw = window.LEADERBOARD_RAW_ACTIVITIES || [];
     var filters = readFilters();
+    var standingsNoSearch = buildLeaderboard(raw, {
+      year: filters.year,
+      quarter: filters.quarter,
+      category: filters.category,
+      searchTerm: "",
+    });
+    var globalRankMap = new Map();
+    standingsNoSearch.forEach(function (r) {
+      globalRankMap.set(normalizeName(r.displayName), r.rank);
+    });
     var rows = buildLeaderboard(raw, filters);
-    renderPodium(document.getElementById("podium"), rows);
-    renderList(document.getElementById("list"), rows);
+    renderPodium(document.getElementById("podium"), rows, globalRankMap);
+    renderList(document.getElementById("list"), rows, globalRankMap);
   }
 
   function init() {
