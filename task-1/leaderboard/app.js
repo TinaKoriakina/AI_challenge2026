@@ -768,12 +768,32 @@
     });
 
     var search = document.getElementById("filter-search");
+    var clearBtn = document.getElementById("filter-search-clear");
     var t;
+
+    function updateSearchClearVisibility() {
+      if (clearBtn && search) {
+        clearBtn.hidden = !String(search.value || "").trim();
+      }
+    }
+
     search.addEventListener("input", function () {
+      updateSearchClearVisibility();
       clearTimeout(t);
       t = setTimeout(refresh, 200);
     });
 
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        search.value = "";
+        updateSearchClearVisibility();
+        clearTimeout(t);
+        refresh();
+        search.focus();
+      });
+    }
+
+    updateSearchClearVisibility();
     refresh();
   }
 

@@ -600,7 +600,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 0 8px 0 0;
+  padding: 0;
   border: none;
   border-radius: 0;
   appearance: none;
@@ -635,6 +635,62 @@ body {
 .ms-SearchBox-field.search-box__field::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
+}
+
+/*
+ * ChromeClose у SearchBox — SharePoint DevTools: іконка 12×16, 12px MDL2, колір #373737, margin 0 4px.
+ */
+.search-box__clear.ms-Button {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0 4px;
+  padding: 0;
+  border: none;
+  border-radius: var(--borderRadiusSmall);
+  background: transparent;
+  color: #373737;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ms-SearchBox.search-box .search-box__clear:not([hidden]) {
+  display: inline-flex;
+}
+
+.search-box__clear:hover {
+  color: #29292b;
+}
+
+.search-box__clear:focus {
+  outline: none;
+}
+
+.search-box__clear:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 1px;
+}
+
+.search-box__clear-icon.ms-Icon {
+  display: inline-flex;
+  line-height: 0;
+  font-size: 12px;
+  width: 12px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  font-style: normal;
+}
+
+.search-box__clear-icon svg {
+  width: 12px;
+  height: 12px;
+  display: block;
 }
 
 /* Podium — DevTools: max-width 900px, gap 24px, padding 32px 8px, align-items flex-end, justify center */
