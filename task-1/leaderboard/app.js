@@ -3,7 +3,7 @@
 
   /** @typedef {{ displayName: string, role: string, date: string, category: string, points: number, photoUrl?: string, activityTitle?: string }} RawActivity */
   /** @typedef {{ date: string, category: string, points: number, activityTitle: string }} Activity */
-  /** @typedef {{ rank: number, displayName: string, role: string, totalScore: number, categoryBreakdown: Record<string, number>, activities: Activity[], photoUrl: string }} PersonRow */
+  /** @typedef {{ rank: number, displayName: string, role: string, totalScore: number, categoryEventCounts: Record<string, number>, activities: Activity[], photoUrl: string }} PersonRow */
 
   function parseISODate(s) {
     var d = new Date(s + "T12:00:00");
@@ -68,9 +68,10 @@
       var total = entry.activities.reduce(function (s, x) {
         return s + x.points;
       }, 0);
-      var breakdown = {};
+      /* Число під іконкою категорії — кількість подій (активностей), не сума XP */
+      var eventCounts = {};
       entry.activities.forEach(function (x) {
-        breakdown[x.category] = (breakdown[x.category] || 0) + x.points;
+        eventCounts[x.category] = (eventCounts[x.category] || 0) + 1;
       });
       var acts = entry.activities.slice().sort(function (a, b) {
         return b.date.localeCompare(a.date);
@@ -80,7 +81,7 @@
         displayName: entry.displayName,
         role: entry.role || "",
         totalScore: total,
-        categoryBreakdown: breakdown,
+        categoryEventCounts: eventCounts,
         activities: acts,
         photoUrl: entry.photoUrl || "",
       });
@@ -224,8 +225,9 @@
     return String(points);
   }
 
-  function sortedCategoriesForList(breakdown) {
-    var keys = Object.keys(breakdown || {});
+  /** @param {Record<string, number>} countsPerCategory — для рядка списку: кількість подій на категорію */
+  function sortedCategoriesForList(countsPerCategory) {
+    var keys = Object.keys(countsPerCategory || {});
     return keys.sort(function (a, b) {
       var ia = CATEGORY_LIST_ORDER.indexOf(a);
       var ib = CATEGORY_LIST_ORDER.indexOf(b);
@@ -329,8 +331,8 @@
 
       var right = el("div", "row-right");
       var catStats = el("div", "category-stats");
-      sortedCategoriesForList(person.categoryBreakdown).forEach(function (cat) {
-        var pts = person.categoryBreakdown[cat];
+      sortedCategoriesForList(person.categoryEventCounts).forEach(function (cat) {
+        var eventCount = person.categoryEventCounts[cat];
         if (!pts) return;
         var meta = categoryListStatIcon(cat);
         var wrap = el("div", "category-stat-wrap");
@@ -343,7 +345,7 @@
         ic.setAttribute("data-icon-name", meta.iconName);
         ic.innerHTML = meta.svg;
         stat.appendChild(ic);
-        stat.appendChild(el("span", "category-stat-count", String(pts)));
+        stat.appendChild(el("span", "category-stat-count", String(eventCount)));
         wrap.appendChild(stat);
         var sr = el("span", "visually-hidden", meta.label + ": " + pts + " points");
         wrap.appendChild(sr);

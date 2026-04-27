@@ -28,6 +28,7 @@ We rebuilt the internal **Company Leaderboard** as a **static web application** 
 - **Filtering:** Year and **calendar quarter** apply to each activity’s ISO date; **category** filters activities before scores are summed per person (same mental model as the web part).
 - **Search:** Case-insensitive match on **display name** or **role** within the ranked list.
 - **Sorting:** Leaderboard ordered by **total points descending**; expanded activity rows are **newest first**.
+- **Category row (icons + numbers):** The value under each category icon is the **number of qualifying activities (events)** in that category for the person after filters — **not** category XP. **TOTAL** and the activity table **Points** column still reflect **points**.
 - **Accessibility:** Semantic regions, `aria-expanded` / labels on expand controls, keyboard-friendly custom dropdowns, focus-visible styles where relevant.
 
 ## Repository layout (submission checklist)
