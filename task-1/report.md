@@ -4,6 +4,8 @@
 
 A **static clone** of the internal **Company Leaderboard** web part: filter bar (year, calendar quarter, category), **search**, **podium** for ranks 1–3, **ranked rows** for everyone else, per-row **category icons with counts**, **TOTAL** score with star, **expand/collapse** with chevron, and an expanded **RECENT ACTIVITY** table (activity title, category badge, date, points).
 
+Extras aligned with **SharePoint / Fluent**: **accordion rows** (opening one user collapses any other expanded row), **Fluent-like tooltips** on **category icons only** (`data-tooltip` + CSS callout, no duplicate native `title`), **list row card** radius **12px** with matched inner corners on expand, tuned **rest vs hover** `box-shadow`, softer **tooltip shadow**, and a sharper **search** glyph (stroke SVG).
+
 The goal was **functional and visual parity** with the reference (layout, typography, colours, spacing, interactions) **without** inventing extra product features beyond what the original shows.
 
 ---
@@ -24,7 +26,7 @@ The goal was **functional and visual parity** with the reference (layout, typogr
 - **Cursor** as the AI-assisted IDE: small, explicit prompts (“match this DevTools block”, “fix hover on table rows under `border-collapse`”) worked better than one-shot “rewrite everything”.
 - **Chrome DevTools** for **computed styles**, colours, font sizes, padding, and hover states against the **SharePoint / Fluent** surface.
 - **Plain HTML + CSS + JavaScript** for the **shipped** page so **GitHub Pages** serves a folder artifact **without** a production build pipeline for the UI itself.
-- **Icon fidelity**: category row glyphs follow **`@fluentui/react-icons`** (Fluent *System* icons, 20×20); source-of-truth imports live in `task-1/leaderboard/components/CategoryStatFluentIcons.tsx`, while `app.js` **inlines the same SVG paths** so the site runs without a bundler. `@fluentui/font-icons-mdl2` stays in `package.json` for optional MDL2/font tooling.
+- **Icon fidelity**: **Education** uses **`HatGraduation20Regular`** from **`@fluentui/react-icons`** (20×20 viewBox); CSS bumps it to **23×23 px** so it matches the visual weight of **Public Speaking** and **University Partnership**, which use **Office-scale SVG paths** (`viewBox="0 0 2048 2048"`) committed as `assets/icons/fluent/presentation-2048.svg` and `emoji-2048.svg`, mirrored in `app.js` and in **`PresentationIcon.tsx` / `EmojiIcon.tsx`** for React parity. **Search** uses a stroke icon at `assets/icons/fluent/search-20-regular.svg`. `CategoryStatFluentIcons.tsx` ties React exports to these choices; `app.js` **inlines paths** so GitHub Pages runs **without** a bundler. `@fluentui/font-icons-mdl2` stays in `package.json` for optional MDL2/font tooling.
 - **CSS variables** in `styles.css` mirror a **subset of Fluent-style tokens** so theme tweaks stay traceable next to DevTools.
 - **Deploy**: `.github/workflows/deploy-pages.yml` publishes the contents of **`task-1/leaderboard`** to **GitHub Pages** (enable **Settings → Pages → Build: GitHub Actions**). Static assets use a **query-string cache buster** (`?v=…` in `index.html`) so browsers pick up new `app.js` / `styles.css` after each deploy.
 
@@ -39,6 +41,7 @@ The goal was **functional and visual parity** with the reference (layout, typogr
 5. **Category icons + number** under each icon = **count of qualifying activities (events)** in that category for that person **after** the same filters — **not** a per-category points subtotal. **TOTAL** and the activity table **Points** column still use **points**.
 6. **Expanded activities** sorted **newest first** by ISO date string.
 7. **Accessibility**: landmark section, expand `aria-expanded` / labels, keyboard-operable custom dropdown pattern, visible focus where it matters.
+8. **Expand interaction**: at most **one** row detail open at a time (accordion).
 
 ---
 
@@ -47,7 +50,8 @@ The goal was **functional and visual parity** with the reference (layout, typogr
 | Deliverable | Path |
 |-------------|------|
 | Runnable app | `task-1/leaderboard/` — `index.html`, `styles.css`, `app.js`, `data.js` |
-| Icon reference (TSX, not loaded at runtime) | `task-1/leaderboard/components/*.tsx` |
+| Fluent SVG assets (reference / copy source) | `task-1/leaderboard/assets/icons/fluent/*.svg` |
+| Icon reference (TSX, optional bundler path) | `task-1/leaderboard/components/*.tsx` |
 | This report | `task-1/report.md` |
 | Pages workflow | `.github/workflows/deploy-pages.yml` |
 
