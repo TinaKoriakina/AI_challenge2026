@@ -136,8 +136,9 @@
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" focusable="false" aria-hidden="true"><path d="M7.2 2.1a.9.9 0 0 1 1.6 0l1.53 3.08 3.4.5a.9.9 0 0 1 .5 1.53l-2.46 2.4.58 3.39a.9.9 0 0 1-1.3.95L8 12.35l-3.04 1.6a.9.9 0 0 1-1.3-.95l.57-3.39-2.46-2.4a.9.9 0 0 1 .5-1.53l3.4-.5L7.2 2.1Z"/></svg>';
 
   /** Fluent Info 20 Regular — як у SharePoint MessageBar (data-icon-name="Info"). */
+  /** Вивід 16×16 — як Fluent MDL2 Info у DevTools. */
   var FLUENT_INFO_20 =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M10 2.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z"/><path d="M9.25 5.9h1.4v1.4H9.25V5.9zm0 3.1h1.4v5.2H9.25V9z"/></svg>';
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.25" d="M10 2.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z"/><path d="M9.25 5.9h1.4v1.4H9.25V5.9zm0 3.1h1.4v5.2H9.25V9z"/></svg>';
 
   var FLUENT_CHEVRON_DOWN_20 =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path d="M15.85 7.65c.2.2.2.5 0 .7l-5.46 5.49a.55.55 0 01-.78 0L4.15 8.35a.5.5 0 01.7-.7L10 12.21l5.15-5.56a.5.5 0 01.7.01z"/></svg>';

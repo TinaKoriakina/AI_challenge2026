@@ -1648,29 +1648,29 @@ body {
 }
 
 /*
- * Fluent MessageBar (info) — порожній список, як SharePoint:
- * .ms-MessageBar-content: flex, width 100%, 14px / #323130
+ * Fluent MessageBar (info) — DevTools SharePoint:
+ * текст 12px / line-height 16px, #323130; іконка Info 16×16, #605E5C (Fluent MDL2 Hybrid)
  */
 .leaderboard-empty-message-bar.ms-MessageBar {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 8px 12px;
   min-height: 32px;
   font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
+  font-size: var(--fontSizeBase200);
   font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase300);
+  line-height: var(--lineHeightBase200);
   color: #323130;
   word-break: break-word;
   -webkit-font-smoothing: antialiased;
   user-select: text;
   text-align: left;
-  background: var(--colorNeutralBackground2);
+  background: #f3f2f1;
   border: 1px solid var(--colorNeutralStroke1);
   border-radius: var(--borderRadiusSmall);
   box-shadow: var(--shadow2);
@@ -1679,8 +1679,7 @@ body {
 .leaderboard-empty-message-bar .leaderboard-empty-message-bar-icon {
   flex-shrink: 0;
   display: flex;
-  align-items: flex-start;
-  padding: 2px 0 0;
+  align-items: center;
   margin-inline-end: 8px;
 }
 
@@ -1688,17 +1687,23 @@ body {
   display: inline-flex;
   line-height: 0;
   color: #605e5c;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .leaderboard-empty-message-bar .leaderboard-empty-message-bar-icon-glyph svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   display: block;
 }
 
 .leaderboard-empty-message-bar .leaderboard-empty-message-bar-text {
   flex: 1 1 auto;
   min-width: 0;
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+  color: #323130;
 }
 
 .leaderboard-empty-message-bar .leaderboard-empty-message-bar-inner {
