@@ -135,6 +135,10 @@
   var FLUENT_STAR_16 =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" focusable="false" aria-hidden="true"><path d="M7.2 2.1a.9.9 0 0 1 1.6 0l1.53 3.08 3.4.5a.9.9 0 0 1 .5 1.53l-2.46 2.4.58 3.39a.9.9 0 0 1-1.3.95L8 12.35l-3.04 1.6a.9.9 0 0 1-1.3-.95l.57-3.39-2.46-2.4a.9.9 0 0 1 .5-1.53l3.4-.5L7.2 2.1Z"/></svg>';
 
+  /** Fluent Info 20 Regular — як у SharePoint MessageBar (data-icon-name="Info"). */
+  var FLUENT_INFO_20 =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M10 2.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z"/><path d="M9.25 5.9h1.4v1.4H9.25V5.9zm0 3.1h1.4v5.2H9.25V9z"/></svg>';
+
   var FLUENT_CHEVRON_DOWN_20 =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" focusable="false" aria-hidden="true"><path d="M15.85 7.65c.2.2.2.5 0 .7l-5.46 5.49a.55.55 0 01-.78 0L4.15 8.35a.5.5 0 01.7-.7L10 12.21l5.15-5.56a.5.5 0 01.7.01z"/></svg>';
   /* Рядок згорнутий — ChevronDown; розгорнутий — ChevronUp (той самий path, rotate 180° по центру viewBox). */
@@ -321,10 +325,35 @@
     });
   }
 
+  /** Порожній стан у стилі Fluent MessageBar (SharePoint). */
+  function createEmptyStateMessageBar() {
+    var root = el("div", "ms-MessageBar leaderboard-empty-message-bar");
+    root.setAttribute("role", "status");
+    root.setAttribute("aria-live", "polite");
+
+    var iconWrap = el("div", "ms-MessageBar-icon leaderboard-empty-message-bar-icon");
+    iconWrap.setAttribute("aria-hidden", "true");
+    var icon = document.createElement("i");
+    icon.className = "leaderboard-empty-message-bar-icon-glyph";
+    icon.setAttribute("data-icon-name", "Info");
+    icon.setAttribute("aria-hidden", "true");
+    icon.innerHTML = FLUENT_INFO_20;
+    iconWrap.appendChild(icon);
+
+    var textWrap = el("div", "ms-MessageBar-text leaderboard-empty-message-bar-text");
+    var inner = el("span", "ms-MessageBar-innerText leaderboard-empty-message-bar-inner");
+    inner.appendChild(el("span", null, "No activities found matching the current filters."));
+    textWrap.appendChild(inner);
+
+    root.appendChild(iconWrap);
+    root.appendChild(textWrap);
+    return root;
+  }
+
   function renderList(container, rows, globalRankMap) {
     container.innerHTML = "";
     if (!rows.length) {
-      container.appendChild(el("div", "empty-state", "No results for the current filters."));
+      container.appendChild(createEmptyStateMessageBar());
       return;
     }
     rows.forEach(function (person) {
@@ -679,7 +708,9 @@
       globalRankMap.set(normalizeName(r.displayName), r.rank);
     });
     var rows = buildLeaderboard(raw, filters);
-    renderPodium(document.getElementById("podium"), rows, globalRankMap);
+    var podiumEl = document.getElementById("podium");
+    renderPodium(podiumEl, rows, globalRankMap);
+    podiumEl.hidden = rows.length === 0;
     renderList(document.getElementById("list"), rows, globalRankMap);
   }
 
